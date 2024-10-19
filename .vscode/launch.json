@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "name": "program_name",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/program_name",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb",
+      "preLaunchTask": "build"
+    }
+  ]
+}
