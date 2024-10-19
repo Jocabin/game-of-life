@@ -14,4 +14,4 @@ With that, you can retrieve all memories allocations in this file.
 
 This template contain all necessary files for LSP, formating and debuging to use with Visual Studio Code, in case you need it.
 
-Don't forget to add `meme_leaks.txt` in your `.gitignore`!
+Don't forget to add `mem_leaks.txt` in your `.gitignore`!
