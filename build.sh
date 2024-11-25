@@ -1,4 +1,4 @@
 rm -rf build
 mkdir build
 
-odin run src -out:build/program_name -debug -- $1
+odin run src -out:build/gol -debug -- $1

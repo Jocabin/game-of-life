@@ -1,10 +1,10 @@
 {
   "configurations": [
     {
-      "name": "program_name",
+      "name": "gol",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/program_name",
+      "program": "${workspaceFolder}/build/gol",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

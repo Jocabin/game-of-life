@@ -1,17 +1,16 @@
-# Odin project template
+# Game of life
 
-## How to build and run
+## Build
+Just run the `./build.sh` file, or build the project with the Odin compiler.
 
-Rename all the occurences of `program_name` in the template by your app name.
+**WARNING: You will need the Odin compiler to run the project. I don't want to ship binaries.**
 
-`./build.sh` will build with debug informations, and then run the program.
+## Keybindings
+- SPACEBAR: Play/pause the simulation
+- S: Step by step the simulation
+- C: Clear the board
+- LEFT CLICK: Draw a cell
+- RIGHT CLICK: Erase a cell
+- M: Toggle Menu
 
-## Informations
-
-At the begining of the `src/main.odin` file, you will notice a block of code. This is for tracking bad frees and unfree allocations. All errors printed to `stderr` will finish in the `mem_leaks.txt` file.
-
-With that, you can retrieve all memories allocations in this file.
-
-This template contain all necessary files for LSP, formating and debuging to use with Visual Studio Code, in case you need it.
-
-Don't forget to add `mem_leaks.txt` in your `.gitignore`!
+You can draw cells only when simulation is paused. It's a choice, not a constraint.

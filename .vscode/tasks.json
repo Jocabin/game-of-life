@@ -3,7 +3,7 @@
   "tasks": [
     {
       "label": "build",
-      "command": "odin build src -out:build/program_name -debug",
+      "command": "odin build src -out:build/gol -debug",
       "type": "shell",
       "args": [],
       "problemMatcher": ["$tsc"],
