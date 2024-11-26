@@ -11,6 +11,5 @@ Just run the `./build.sh` file, or build the project with the Odin compiler.
 - C: Clear the board
 - LEFT CLICK: Draw a cell
 - RIGHT CLICK: Erase a cell
-- M: Toggle Menu
 
 You can draw cells only when simulation is paused. It's a choice, not a constraint.
