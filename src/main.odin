@@ -49,6 +49,7 @@ main :: proc() {
 	}
 
 	rl.SetTargetFPS(60)
+	rl.SetTraceLogLevel(.NONE)
 	rl.InitWindow(DISPLAY_WIDTH, DISPLAY_HEIGHT + 50, "Game of life in Odin")
 	defer rl.CloseWindow()
 
@@ -137,8 +138,8 @@ main :: proc() {
 
 		rl.DrawRectangleRec(menu_rec, rl.RAYWHITE)
 		if ui_button(&last_rec_w, i32(menu_rec.x + 10), btn_y, state.paused ? "Play (SPACE)" : "Pause (SPACE)") do state.paused = !state.paused
-		if ui_button(&last_rec_w, i32(last_rec_w + 10), btn_y, "Speed +") do state.speed += 10
-		if ui_button(&last_rec_w, i32(last_rec_w + 10), btn_y, "Speed -") do state.speed -= 10
+		if ui_button(&last_rec_w, i32(last_rec_w + 10), btn_y, "Speed +") do state.speed = clamp(state.speed + 10, 10, 60)
+		if ui_button(&last_rec_w, i32(last_rec_w + 10), btn_y, "Speed -") do state.speed = clamp(state.speed - 10, 10, 60)
 
 		if state.paused {
 			if ui_button(&last_rec_w, i32(last_rec_w + 10), btn_y, "Step (S)") do state.step = false
@@ -165,20 +166,16 @@ main :: proc() {
 }
 
 get_total_neighbors :: proc(state: Game_State, x, y: int) -> (total_count: u8) {
-	if x > 0 {
-		if y > 0 do total_count += u8(state.framebuffer[(y - 1) * COLS + (x - 1)])
-		total_count += u8(state.framebuffer[y * COLS + (x - 1)])
-		if y < ROWS - 1 do total_count += u8(state.framebuffer[(y + 1) * COLS + (x - 1)])
-	}
+	total_count += u8(state.framebuffer[get_fb_index(x - 1, y - 1)])
+	total_count += u8(state.framebuffer[get_fb_index(x - 1, y)])
+	total_count += u8(state.framebuffer[get_fb_index(x - 1, y + 1)])
 
-	if y > 0 do total_count += u8(state.framebuffer[(y - 1) * COLS + x])
-	if y < ROWS - 1 do total_count += u8(state.framebuffer[(y + 1) * COLS + x])
+	total_count += u8(state.framebuffer[get_fb_index(x, y - 1)])
+	total_count += u8(state.framebuffer[get_fb_index(x, y + 1)])
 
-	if x < COLS - 1 {
-		if y > 0 do total_count += u8(state.framebuffer[(y - 1) * COLS + (x + 1)])
-		total_count += u8(state.framebuffer[y * COLS + (x + 1)])
-		if y < ROWS - 1 do total_count += u8(state.framebuffer[(y + 1) * COLS + (x + 1)])
-	}
+	total_count += u8(state.framebuffer[get_fb_index(x + 1, y - 1)])
+	total_count += u8(state.framebuffer[get_fb_index(x + 1, y)])
+	total_count += u8(state.framebuffer[get_fb_index(x + 1, y + 1)])
 
 	return
 }
@@ -201,4 +198,17 @@ in_rec :: proc(mouse_pos: rl.Vector2, bounds: rl.Rectangle) -> bool {
 	y_ok := mouse_pos[1] >= bounds.y && mouse_pos[1] <= (bounds.y + bounds.height)
 
 	return x_ok && y_ok
+}
+
+get_fb_index :: proc(x, y: int) -> int {
+	vx := x
+	vy := y
+
+	if y < 0 do vy = ROWS - 1
+	else if y >= ROWS do vy = 0
+
+	if x < 0 do vx = COLS - 1
+	else if x >= COLS do vx = 0
+
+	return vy * COLS + vx
 }
